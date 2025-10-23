@@ -103,17 +103,23 @@ class Conversation:
 
         print("🔴 CONV STEP 18: Token settings configured")
 
-        print("🔴 CONV STEP 19: About to run IMPORT code...")
+        # ═══════════════════════════════════════════════════════════════
+        # 🔧 FIX: Comment out IMPORT code execution
+        # ═══════════════════════════════════════════════════════════════
+        # REASON: Running self.run_code(IMPORT) at startup causes hang on EC2
+        #         because it imports matplotlib before it's needed.
+        #         The kernel.py will inject matplotlib dynamically when needed.
+        # ═══════════════════════════════════════════════════════════════
+        
+        # COMMENTED OUT - THESE LINES WERE CAUSING THE HANG:
+        # print("🔴 CONV STEP 19: About to run IMPORT code...")
+        # print("=" * 60)
+        # print("⚠️  RUNNING IMPORT CODE IN KERNEL - THIS MIGHT HANG!")
+        # print("=" * 60)
+        # self.run_code(IMPORT)
+        # print("🔴 CONV STEP 20: IMPORT code executed! ✅")
 
-        print("=" * 60)
-
-        print("⚠️  RUNNING IMPORT CODE IN KERNEL - THIS MIGHT HANG!")
-
-        print("=" * 60)
-
-        self.run_code(IMPORT)
-
-        print("🔴 CONV STEP 20: IMPORT code executed! ✅")
+        print("🔴 CONV STEP 19: Skipped IMPORT execution (will load dynamically)")
 
         print("=" * 60)
 
@@ -121,7 +127,6 @@ class Conversation:
 
         print("=" * 60)
     
-
 
     def add_functions(self, function_lib: dict) -> None:
         self.function_repository = function_lib
